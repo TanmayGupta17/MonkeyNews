@@ -1,0 +1,263 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Navbar Styling */
+.navbar {
+  position: fixed;  /* Pin to top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  color: white;
+  font-family: Arial, sans-serif;
+  z-index: 1000; /* Ensure it's above other elements */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Links */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-link a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link a:hover {
+  color: #f39c12;
+}
+
+/* Logo Styling */
+.NewsMonkey {
+  font-size: 22px;
+  font-weight: bold;
+  color: #f39c12;
+}
+
+/* Search Bar Alignment */
+.nav-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 40px; /* Move elements slightly to the left */
+}
+
+.search {
+  padding: 10px;
+  border: 2px solid #f39c12;
+  border-radius: 5px;
+  outline: none;
+  background: #333;
+  color: white;
+  font-size: 16px;
+  width: 200px; /* Wider input */
+}
+
+.submit {
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.submit:hover {
+  background-color: #e67e22;
+}
+
+/* Add margin to body so content doesn't go under the navbar */
+body {
+  margin-top: 60px;
+}
+
+.news-item {
+  width: 18rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-item-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.news-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-item-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.news-item-title {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.news-item-description {
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+  flex-grow: 1;
+}
+
+.news-item-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  align-self: center;
+}
+
+.news-item-button:hover {
+  background-color: #0056b3;
+}
+.news-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centers and prevents extra space */
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 100%; /* Ensures it doesn't exceed screen width */
+}
+/* General container styling */
+.about-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: transparent; /* Matches the page background */
+  border-radius: 10px;
+  color: #ffffff; /* White text for contrast */
+}
+
+/* Heading styles */
+.about-container h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #ffcc00; /* Gold color for a striking look */
+  margin-bottom: 20px;
+}
+
+.about-container h3 {
+  color: #ffcc00; /* Gold subheadings */
+  margin-top: 25px;
+  font-size: 1.5rem;
+}
+
+/* Paragraph styles */
+.about-container p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ddd; /* Light gray text for readability */
+}
+
+/* List styling */
+.about-container ul {
+  padding: 0;
+  list-style: none;
+}
+
+.about-container li {
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1); /* Subtle transparent background */
+  color: #fff;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+/* Custom checkmark icon before each list item */
+.about-container li::before {
+  content: "✔";
+  font-weight: bold;
+  color: #ffcc00; /* Gold checkmark */
+  margin-right: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 20px;
+  }
+  
+  .about-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-container h3 {
+    font-size: 1.3rem;
+  }
+
+  .about-container p, .about-container li {
+    font-size: 1rem;
+  }
+}
+
