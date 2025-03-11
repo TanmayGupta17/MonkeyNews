@@ -28,25 +28,55 @@ export default function NewsComponent({ query, category }) {
       ...prevState,
       loading: true
     }));
-    let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=48f6bedfe2454586a6342cf580c36ab9&page=${page}&pageSize=21`;
+  
+    let url = `http://api.mediastack.com/v1/news?access_key=df85ce661a31a9fa8891956d026b230c&languages=en&limit=10&offset=${(page - 1) * 10}`;
     if (query) {
-      url += `&q=${query}`;
+      url += `&keywords=${query}`;
     }
     if (category) {
-      url += `&category=${category}`;
+      url += `&categories=${category}`;
     }
+  
     console.log(`Fetching data from URL: ${url}`);
-    let data = await fetch(url);
-    let parsedData = await data.json();
+    let response = await fetch(url);
+    let parsedData = await response.json();
     console.log(parsedData);
-    const filteredArticles = parsedData.articles.filter(article => article.urlToImage);
-    setState((prevState) => ({
-      ...prevState,
-      articles: page === 1 ? filteredArticles : prevState.articles.concat(filteredArticles),
-      loading: false,
-      totalResults: parsedData.totalResults
-    }));
+  
+    if (!parsedData.data) {
+      console.error('API response does not contain data property:', parsedData);
+      setState((prevState) => ({
+        ...prevState,
+        loading: false
+      }));
+      return;
+    }
+  
+    // Filter only articles with images
+    const newArticles = parsedData.data.filter(article => article.image);
+  
+    setState((prevState) => {
+      const seen = new Set();
+      const uniqueArticles = [];
+  
+      // Combine existing articles with new ones and remove duplicates
+      [...prevState.articles, ...newArticles].forEach(article => {
+        const uniqueKey = `${article.title}-${article.url}`; // Unique combination
+  
+        if (!seen.has(uniqueKey)) {
+          seen.add(uniqueKey);
+          uniqueArticles.push(article);
+        }
+      });
+  
+      return {
+        ...prevState,
+        articles: uniqueArticles,
+        loading: false,
+        totalResults: parsedData.pagination.total
+      };
+    });
   };
+  
 
   useEffect(() => {
     fetchData(state.page, query, category);
@@ -62,7 +92,6 @@ export default function NewsComponent({ query, category }) {
   return (
     <div>
       <h1>NewsMonkey - Top Headlines {category ? category : ""}</h1>
-      {state.loading && <Spinner />}
       <InfiniteScroll
         dataLength={state.articles.length}
         next={fetchMoreData}
@@ -76,13 +105,14 @@ export default function NewsComponent({ query, category }) {
                 key={index}
                 title={element.title ? element.title.slice(0, 45) : "No Title"}
                 description={element.description ? element.description.slice(0, 100) : "No Description"}
-                imageUrl={element.urlToImage}
+                imageUrl={element.image}
                 url={element.url}
               />
             )
           })}
         </div>
       </InfiniteScroll>
+      {state.loading && <Spinner />}
     </div>
   );
 }

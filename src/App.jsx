@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Navbar from './Components/Navbar';
 import NewsComponent from './Components/NewsComponent';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import About from './Components/About';
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
     <Router>
       <Navbar onSearch={handleSearch} />
       <Routes>
+        <Route path="/" element={<Navigate to="/Home" />} />
         <Route path="/Home" element={<NewsComponent query={query} />} />
         <Route path="/About" element={<About />} />
         <Route path="/general" element={<NewsComponent category="general" query={query}/>} />
